@@ -2,7 +2,7 @@ import nltk
 nltk.download('stopwords')
 import re
 from nltk.stem import SnowballStemmer
-#from nltk.corpus import stopwords
+from nltk.corpus import stopwords
 import string
 
 # Définir la liste des mots vides (stop words) en français
