@@ -1,5 +1,6 @@
 import nltk
 nltk.download('stopwords')
+nltk.download('punkt')
 import re
 from nltk.stem import SnowballStemmer
 from nltk.corpus import stopwords
