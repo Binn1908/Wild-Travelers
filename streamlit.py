@@ -21,7 +21,8 @@ def load_df():
     df1 = pd.read_pickle('df_final_pretraite_fr_1.pickle')
     df2 = pd.read_pickle('df_final_pretraite_fr_2.pickle')
     df3 = pd.read_pickle('df_final_pretraite_fr_3.pickle')
-    df = pd.concat([df1, df2, df3])
+    df4 = pd.read_pickle('df_final_pretraite_fr_4.pickle')
+    df = pd.concat([df1, df2, df3, df4])
     return df
 
 #téléchargement du modèle ML
