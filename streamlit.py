@@ -56,18 +56,19 @@ with sl.sidebar:
 	with sl.form('address'):
 		user_address = sl.text_input('Adresse', value = '')
 		user_radius = sl.slider('Rayon (km)', min_value = 0, max_value = 10, value = 1, step = 1)
+
+		#sélection de la catégorie
+		type_options = ['Hébergement', 'Restauration']
+		user_type = sl.multiselect("Type d'établissement", type_options)
+
+		#checkbox mobilité
+		mobility = sl.checkbox('Accès mobilité réduite')
+
 		submit = sl.form_submit_button('Envoyer')
 
 	if submit:
 		if user_address == '':
 			sl.write('Aucune adresse renseignée')
-
-	#sélection de la catégorie
-	type_options = ['Hébergement', 'Restauration']
-	user_type = sl.multiselect("Type d'établissement", type_options)
-
-	#checkbox mobilité
-	mobility = sl.checkbox('Accès mobilité réduite')
 
 	#sélection de la région
 	#region_options = df['region'].drop_duplicates().to_list()
@@ -101,13 +102,14 @@ with tab1:
 
 	df_filtered = df
 
-	if bool(user_type) == True:
-		df_filtered = df_filtered.loc[df_filtered['category'].isin(user_type)]
-
-	if bool(mobility) == True:
-		df_filtered = df_filtered.loc[df_filtered['reducedMobilityAccess'] == True]
-
 	if submit:
+
+		if bool(user_type) == True:
+			df_filtered = df_filtered.loc[df_filtered['category'].isin(user_type)]
+
+		if bool(mobility) == True:
+			df_filtered = df_filtered.loc[df_filtered['reducedMobilityAccess'] == True]
+
 		if user_address != '':
 			url = 'https://nominatim.openstreetmap.org/search/' + urllib.parse.quote(user_address) + '?format=json'
 			response = requests.get(url).json()
@@ -121,10 +123,6 @@ with tab1:
 				latitude = float(df_filtered.iloc[etablissement].latitude)
 				longitude = float(df_filtered.iloc[etablissement].longitude)
 				loc = (latitude, longitude)
-
-				#sl.write(df_filtered.iloc[etablissement].nom_etablissement)
-
-				#sl.write(loc)
 		
 				distance = hs.haversine(user_loc, loc) #unit = hs.Unit.METERS
 		
@@ -286,7 +284,7 @@ with tab3:
 
 	X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-	vectorizer = TfidfVectorizer(stop_words='english', max_features=5000, ngram_range=(1, 2), min_df=5)
+	vectorizer = TfidfVectorizer(max_features=5000, ngram_range=(1, 2), min_df=5)
 
 	X_train_vectorized = vectorizer.fit_transform(X_train)
 	X_test_vectorized = vectorizer.transform(X_test)
@@ -299,7 +297,7 @@ with tab3:
 
 	predicted_category = model.predict(new_text_vectorized)
 
-	sl.write(f"Prédiction de catégorie : {predicted_category}")
+	sl.write(f"Prédiction de catégorie : {predicted_category[0]}")
 
 #footer
 sl.divider()
