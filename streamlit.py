@@ -128,8 +128,8 @@ with tab1:
 		
 				distance = hs.haversine(user_loc, loc) #unit = hs.Unit.METERS
 		
-			if distance <= user_radius:
-				list_index.append(etablissement)
+				if distance <= user_radius:
+					list_index.append(etablissement)
 
 			df_filtered = df_filtered.iloc[list_index]
 
