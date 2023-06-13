@@ -110,7 +110,7 @@ with tab1:
 	#initial_view_state dans le code suivant indique la vue initiale de la carte en prenant en compte les coordonnées définies ci-dessus
 
 	map_main = sl.pydeck_chart(pdk.Deck(
-	    map_style=None,
+	    map_style='road',
 	    initial_view_state=pdk.ViewState(
 	        latitude=lat_default,
 	        longitude=lon_default,
