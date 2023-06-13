@@ -66,10 +66,6 @@ with sl.sidebar:
 
 		submit = sl.form_submit_button('Envoyer')
 
-	if submit:
-		if user_address == '':
-			sl.write('Veuillez renseigner une adresse.')
-
 	#sélection de la région
 	#region_options = df['region'].drop_duplicates().to_list()
 	#mettre en première position l'IDF dans la liste des options
@@ -108,17 +104,19 @@ with tab1:
 
 	if submit:
 
-		#seulement quand les filtres sont appliqués, l'appli affiche (selon l'adresse) d'autres régions
-		df_filtered = df
-
-		if bool(user_type) == True:
-			df_filtered = df_filtered.loc[df_filtered['category'].isin(user_type)]
-
-		if bool(mobility) == True:
-			df_filtered = df_filtered.loc[df_filtered['reducedMobilityAccess'] == True]
-
-		#récupérer coordonnées de l'adresse via API
 		if user_address != '':
+
+			#seulement quand les filtres sont appliqués, l'appli affiche (selon l'adresse) d'autres régions
+			df_filtered = df
+
+			if bool(user_type) == True:
+				df_filtered = df_filtered.loc[df_filtered['category'].isin(user_type)]
+
+			if bool(mobility) == True:
+				df_filtered = df_filtered.loc[df_filtered['reducedMobilityAccess'] == True]
+
+			#récupérer coordonnées de l'adresse via API
+		
 			url = 'https://nominatim.openstreetmap.org/search/' + urllib.parse.quote(user_address) + '?format=json'
 			response = requests.get(url).json()
 			user_lat = float(response[0]["lat"])
@@ -150,6 +148,8 @@ with tab1:
 
 			else:
 				sl.write("Aucun établissement trouvé")
+		else:
+			sl.write('Veuillez renseigner une adresse.')
 
 	#df_filtered = df.loc[(df['region'] == user_region) & (df['departement'] == user_dep) &
 	#(df['ville'] == user_ville)]
