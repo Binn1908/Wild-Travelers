@@ -135,6 +135,8 @@ with tab1:
 	#(df['ville'] == user_ville)]
 
 	df_coordinates = df_filtered[['nom_etablissement', 'category', 'latitude', 'longitude']]
+	
+	sl.write(f"Nombre d'établissements trouvés : {len(df_coordinates)}")
 
 	#s'il y a au moins un établissement dans notre recherche, recentrer la carte sur la position moyenne de tous les points
 	if len(df_coordinates) > 0:
