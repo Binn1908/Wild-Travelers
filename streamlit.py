@@ -135,6 +135,21 @@ with tab1:
 
 	#cartographie
 
+	icon_url = 'https://cdn-icons-png.flaticon.com/512/3082/3082383.png'
+
+	#icon_img = Image.open('icon.jpg')
+	
+	icon_data = {
+		'url': icon_url,
+		'width': 242,
+		'height': 242,
+		'anchorY': 242
+	}
+
+	df_coordinates['icon_data'] = None
+	for i in df_coordinates.index:
+		df_coordinates['icon_data'][i] = icon_data
+
 	map_main = sl.pydeck_chart(pdk.Deck(
 	    map_style='road',
 	    initial_view_state=pdk.ViewState(
@@ -145,13 +160,13 @@ with tab1:
 	    ),
     	layers=[
         	pdk.Layer(
-            	'ScatterplotLayer',
-            	data=df_coordinates,
-            	get_position='[longitude, latitude]',
-            	get_color="category == 'Hébergement' ? [200, 30, 0, 160] : [0, 100, 200, 160]",
-            	get_radius=40,
-            	pickable=True,
-            	tooltip=True
+    			type="IconLayer",
+    			data=df_coordinates,
+    			get_icon="icon_data",
+    			get_size=1,
+    			size_scale=15,
+   				get_position=["longitude", "latitude"],
+    			pickable=True
         	),
     	],
     	tooltip={
@@ -159,6 +174,15 @@ with tab1:
 	        'style': {
 	        	'color': 'white'}}
 	))
+
+        	#pdk.Layer(
+            #	'ScatterplotLayer',
+            #	data=df_coordinates,
+            #	get_position='[longitude, latitude]',
+            #	get_color="category == 'Hébergement' ? [200, 30, 0, 160] : [0, 100, 200, 160]",
+            #	get_radius=40,
+            #	pickable=True,
+            #	tooltip=True
 
 #tab Dataviz
 with tab2:
