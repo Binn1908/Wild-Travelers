@@ -49,6 +49,13 @@ with sl.sidebar:
 
 	#filtres
 
+	#catégorie
+	type_options = ['Hébergement', 'Restauration']
+	user_type = sl.multiselect("Type d'établissement", type_options)
+
+	#mobilité
+	mobility = sl.checkbox('Accès mobilité réduite')
+	
 	#région
 	region_options = df['region'].drop_duplicates().to_list()
 	#mettre en première position l'IDF dans la liste des options
@@ -69,13 +76,6 @@ with sl.sidebar:
 		ville_options.remove('Paris')
 		ville_options.insert(0,'Paris')
 	user_ville = sl.selectbox("Ville", ville_options)
-
-	#catégorie
-	type_options = ['Hébergement', 'Restauration']
-	user_type = sl.multiselect("Type d'établissement", type_options)
-
-	#mobilité
-	mobility = sl.checkbox('Accès mobilité réduite')
 
 sl.header("Bienvenue chez Wild Travelers")
 
