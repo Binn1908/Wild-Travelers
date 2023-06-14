@@ -1,4 +1,3 @@
-import haversine as hs
 from PIL import Image
 from sklearn.linear_model import LogisticRegression
 import matplotlib.pyplot as plt
@@ -6,12 +5,10 @@ import pandas as pd
 import pydeck as pdk
 import pickle
 from nlp import preprocess_text
-import requests
 import seaborn as sns
 import streamlit as sl
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
-import urllib.parse
 
 sl.set_page_config(layout = 'wide')
 
@@ -52,40 +49,33 @@ with sl.sidebar:
 
 	#filtres
 
-	#adresse
-	with sl.form('address'):
-		user_address = sl.text_input('Adresse', value = '')
-		user_radius = sl.slider('Rayon (km)', min_value = 0, max_value = 10, value = 3, step = 1)
-
-		#catégorie
-		type_options = ['Hébergement', 'Restauration']
-		user_type = sl.multiselect("Type d'établissement", type_options)
-
-		#mobilité
-		mobility = sl.checkbox('Accès mobilité réduite')
-
-		submit = sl.form_submit_button('Envoyer')
-
-	#sélection de la région
-	#region_options = df['region'].drop_duplicates().to_list()
+	#région
+	region_options = df['region'].drop_duplicates().to_list()
 	#mettre en première position l'IDF dans la liste des options
-	#region_options.remove('Île-de-France')
-	#region_options.insert(0,'Île-de-France')
-	#user_region = sl.selectbox("Région", region_options)
+	region_options.remove('Île-de-France')
+	region_options.insert(0,'Île-de-France')
+	user_region = sl.selectbox("Région", region_options)
 
-	#sélection du departement
-	#dep_options = df.loc[df['region'] == user_region]['departement'].drop_duplicates().to_list()
-	#if user_region == 'Île-de-France':
-	#	dep_options.remove('Paris')
-	#	dep_options.insert(0,'Paris')
-	#user_dep = sl.selectbox("Département", dep_options)
+	#departement
+	dep_options = df.loc[df['region'] == user_region]['departement'].drop_duplicates().to_list()
+	if user_region == 'Île-de-France':
+		dep_options.remove('Paris')
+		dep_options.insert(0,'Paris')
+	user_dep = sl.selectbox("Département", dep_options)
 
-	#sélection de la ville
-	#ville_options = df.loc[df['departement'] == user_dep]['ville'].drop_duplicates().to_list()
-	#if user_dep == 'Paris':
-	#	ville_options.remove('Paris')
-	#	ville_options.insert(0,'Paris')
-	#user_ville = sl.selectbox("Ville", ville_options)
+	#ville
+	ville_options = df.loc[df['departement'] == user_dep]['ville'].drop_duplicates().to_list()
+	if user_dep == 'Paris':
+		ville_options.remove('Paris')
+		ville_options.insert(0,'Paris')
+	user_ville = sl.selectbox("Ville", ville_options)
+
+	#catégorie
+	type_options = ['Hébergement', 'Restauration']
+	user_type = sl.multiselect("Type d'établissement", type_options)
+
+	#mobilité
+	mobility = sl.checkbox('Accès mobilité réduite')
 
 sl.header("Bienvenue chez Wild Travelers")
 
@@ -94,67 +84,34 @@ tab1, tab2, tab3 = sl.tabs(['Home', 'Dataviz', 'Robot ML'])
 #tab Home
 with tab1:
 
-	#cartographie
+	df_filtered = df.loc[(df['region'] == user_region) & (df['departement'] == user_dep) & 
+		(df['ville'] == user_ville)]
 
-	#au lancement de l'appli, seuls les établissements de Paris sont affichés pour une meilleure performance
-	df_filtered = df.loc[df.departement == 'Paris']
+	#df_filtered = df.loc[df['ville'] == user_ville]
 
-	lat_default = 48.856578
-	lon_default = 2.351828
+	if bool(user_type) == True:
+		df_filtered = df_filtered.loc[df_filtered['category'].isin(user_type)]
 
-	if submit:
-
-		if user_address != '':
-
-			#seulement quand les filtres sont appliqués, l'appli affiche (selon l'adresse) d'autres régions
-			df_filtered = df
-
-			if bool(user_type) == True:
-				df_filtered = df_filtered.loc[df_filtered['category'].isin(user_type)]
-
-			if bool(mobility) == True:
-				df_filtered = df_filtered.loc[df_filtered['reducedMobilityAccess'] == True]
-
-			#récupérer coordonnées de l'adresse via API
-		
-			url = 'https://nominatim.openstreetmap.org/search/' + urllib.parse.quote(user_address) + '?format=json'
-			response = requests.get(url).json()
-			user_lat = float(response[0]["lat"])
-			user_lon = float(response[0]["lon"])
-			user_loc = (user_lat, user_lon)
-
-			#possible de trouver la ville à partir des coordonnées trouvées ? Si oui, filtrer df par la ville pour réduire le calcul de la distance pour chaque établissement ci-dessous
-
-			list_index = []
-
-			#calculer la distance entre l'adresse de l'utilisateur et chaque établissement
-			for etablissement in range(len(df_filtered)):
-				latitude = float(df_filtered.iloc[etablissement].latitude)
-				longitude = float(df_filtered.iloc[etablissement].longitude)
-				loc = (latitude, longitude)
-		
-				distance = hs.haversine(user_loc, loc) #unit = hs.Unit.METERS
-		
-				if distance <= user_radius:
-					list_index.append(etablissement)
-
-			df_filtered = df_filtered.iloc[list_index]
-
-			if len(df_filtered) > 0:
-				sl.write(f"Nombre d'établissements trouvés : {len(df_filtered)}")
-
-				lat_default = df_filtered['latitude'].mean()
-				lon_default = df_filtered['longitude'].mean()
-
-			else:
-				sl.write("Aucun établissement trouvé")
-		else:
-			sl.write('Veuillez renseigner une adresse.')
-
-	#df_filtered = df.loc[(df['region'] == user_region) & (df['departement'] == user_dep) &
-	#(df['ville'] == user_ville)]
+	if bool(mobility) == True:
+		df_filtered = df_filtered.loc[df_filtered['reducedMobilityAccess'] == True]
 
 	df_coordinates = df_filtered[['nom_etablissement', 'category', 'latitude', 'longitude']]
+
+	if len(df_coordinates) > 0:
+		
+		sl.write(f"Nombre d'établissements trouvés : {len(df_coordinates)}")
+
+		lat_default = df_coordinates['latitude'].mean()
+		lon_default = df_coordinates['longitude'].mean()
+
+	else:
+		
+		sl.write("Aucun établissement trouvé")
+
+		lat_default = 48.856578
+		lon_default = 2.351828
+
+	#cartographie
 
 	map_main = sl.pydeck_chart(pdk.Deck(
 	    map_style='road',
