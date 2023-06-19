@@ -34,6 +34,7 @@ def load_df():
 #        model = pickle.load(file)
 #    return model
 
+#entraînement du modèle ML
 @sl.cache_data
 def load_ml():
 	#df = df.dropna(subset = ['description_pretraitee', 'category'])
@@ -47,7 +48,6 @@ def load_ml():
 	vectorizer = TfidfVectorizer(max_features=5000, ngram_range=(1, 2), min_df=5)
 
 	X_train_vectorized = vectorizer.fit_transform(X_train)
-	#X_test_vectorized = vectorizer.transform(X_test)
 
 	model = LogisticRegression(class_weight='balanced', max_iter=1000)
 
@@ -108,7 +108,7 @@ with tab1:
 	df_coordinates = df.loc[(df['region'] == user_region) & (df['departement'] == user_dep) & 
 		(df['ville'] == user_ville)]
 
-	#df_filtered = df.loc[df['ville'] == user_ville]
+	#df_coordinates = df.loc[df['ville'] == user_ville]
 
 	if bool(user_type) == True:
 		df_coordinates = df_coordinates.loc[df_coordinates['category'].isin(user_type)]
@@ -136,22 +136,9 @@ with tab1:
 	#cartographie
 
 	#icon_url = 'https://cdn-icons-png.flaticon.com/512/3082/3082383.png'
-	
-	#icon_data = {
-		#'url': icon_url,
-		#'width': 242,
-		#'height': 242,
-		#'anchorY': 242}
-
-	#df_coordinates['icon_data'] = None
-	#for i in df_coordinates.index:
-		#df_coordinates['icon_data'][i] = icon_data
 
 	icon_hotel_url = 'https://raw.githubusercontent.com/Binn1908/Wild-Travelers/main/icon_hotel.png'
 	icon_resto_url = 'https://raw.githubusercontent.com/Binn1908/Wild-Travelers/main/icon_resto.png'
-
-	#icon_hotel_url = 'https://cdn-icons-png.flaticon.com/512/3082/3082383.png'
-	#icon_resto_url = 'https://cdn-icons-png.flaticon.com/512/3082/3082383.png'
 	
 	icon_hotel_data = {
 		'url': icon_hotel_url,
@@ -289,23 +276,6 @@ with tab2:
 	for i, v in enumerate(top_10_accommodation_cities.values):
 	    plt.text(v + 0.2, i, str(v), color = 'black', fontweight = 'bold')
 	sl.pyplot(fig)
-
-	#KPI 5
-	#sl.markdown("<h3 style='text-align: center;'>Top 10 des villes avec le plus de restaurations</h3>", unsafe_allow_html=True)
-
-	#accommodation_counts = df[df['category'] == 'Restauration']['ville'].value_counts()
-	#top_10_accommodation_cities = accommodation_counts.nlargest(10)
-	#colors = sns.color_palette('pastel', len(top_10_accommodation_cities))
-
-	#fig, ax = plt.subplots(figsize = (6,2))
-	#ax1 = plt.subplot()
-	#ax1 = sns.barplot(x = top_10_accommodation_cities.values, y = top_10_accommodation_cities.index, palette = colors)
-	#plt.title("Top 10 des villes avec le plus de restaurations")
-	#plt.xlabel('Nombre de restaurations')
-	#plt.ylabel('Ville')
-	#for i, v in enumerate(top_10_accommodation_cities.values):
-		#plt.text(v + 0.2, i, str(v), color = 'black', fontweight = 'bold')
-	#sl.pyplot(fig)
 	
 #tab Robot ML
 with tab3:
