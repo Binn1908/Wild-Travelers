@@ -135,12 +135,30 @@ with tab1:
 
 	#cartographie
 
-	icon_url = 'https://cdn-icons-png.flaticon.com/512/3082/3082383.png'
-
-	#icon_img = Image.open('icon.jpg')
+	#icon_url = 'https://cdn-icons-png.flaticon.com/512/3082/3082383.png'
 	
-	icon_data = {
-		'url': icon_url,
+	#icon_data = {
+		#'url': icon_url,
+		#'width': 242,
+		#'height': 242,
+		#'anchorY': 242}
+
+	#df_coordinates['icon_data'] = None
+	#for i in df_coordinates.index:
+		#df_coordinates['icon_data'][i] = icon_data
+
+	icon_hotel_url = 'https://github.com/Binn1908/Wild-Travelers/blob/01fd7d111e2f8cb2f0382cbab795174dcde4f467/icon_hotel.png'
+	icon_resto_url = 'https://github.com/Binn1908/Wild-Travelers/blob/01fd7d111e2f8cb2f0382cbab795174dcde4f467/icon_resto.png'
+	
+	icon_hotel_data = {
+		'url': icon_hotel_url,
+		'width': 242,
+		'height': 242,
+		'anchorY': 242
+	}
+
+	icon_resto_data = {
+		'url': icon_resto_url,
 		'width': 242,
 		'height': 242,
 		'anchorY': 242
@@ -148,7 +166,10 @@ with tab1:
 
 	df_coordinates['icon_data'] = None
 	for i in df_coordinates.index:
-		df_coordinates['icon_data'][i] = icon_data
+		if df_coordinates.loc[i,'category'] == 'Hébergement':
+			df_coordinates['icon_data'][i] = icon_hotel_data
+		else:
+			df_coordinates['icon_data'][i] = icon_resto_data
 
 	map_main = sl.pydeck_chart(pdk.Deck(
 	    map_style='road',
