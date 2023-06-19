@@ -305,7 +305,7 @@ with tab3:
 
 	sl.write(f"Prédiction du type d'établissement : {predicted_category[0]}")
 
-	sl.write(len(df)
+	sl.write(len(df))
 
 #footer
 sl.divider()
