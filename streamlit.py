@@ -224,7 +224,7 @@ with tab2:
 		colors = colors, wedgeprops = {'edgecolor': 'white'})
 	plt.axis('equal')
 	#plt.title('Distribution des établissements par catégorie')
-	#plt.legend(title = 'Catégories', loc = 'best', bbox_to_anchor = (1, 0.5))
+	plt.legend(title = 'Catégories', loc = 'best', bbox_to_anchor = (1, 0.5))
 	plt.gca().add_artist(plt.Circle((0, 0), 0.7, color = 'white'))
 	sl.pyplot(fig)
 
