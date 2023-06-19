@@ -183,8 +183,6 @@ with tab1:
             		#get_radius=40,
             		#pickable=True,
             		#tooltip=True
-	
-	sl.write(len(df))
 
 #tab Dataviz
 with tab2:
@@ -284,8 +282,6 @@ with tab2:
 	#for i, v in enumerate(top_10_accommodation_cities.values):
 		#plt.text(v + 0.2, i, str(v), color = 'black', fontweight = 'bold')
 	#sl.pyplot(fig)
-
-	sl.write(len(df))
 	
 #tab Robot ML
 with tab3:
@@ -304,8 +300,6 @@ with tab3:
 	predicted_category = model.predict(new_text_vectorized)
 
 	sl.write(f"Prédiction du type d'établissement : {predicted_category[0]}")
-
-	sl.write(len(df))
 
 #footer
 sl.divider()
