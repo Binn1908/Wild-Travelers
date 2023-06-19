@@ -137,8 +137,8 @@ with tab1:
 
 	#icon_url = 'https://cdn-icons-png.flaticon.com/512/3082/3082383.png'
 
-	icon_hotel_url = 'https://raw.githubusercontent.com/Binn1908/Wild-Travelers/main/icon_hotel.png'
-	icon_resto_url = 'https://raw.githubusercontent.com/Binn1908/Wild-Travelers/main/icon_resto.png'
+	icon_hotel_url = "https://raw.githubusercontent.com/Binn1908/Wild-Travelers/main/icon_hotel.png"
+	icon_resto_url = "https://raw.githubusercontent.com/Binn1908/Wild-Travelers/main/icon_resto.png"
 	
 	icon_hotel_data = {
 		'url': icon_hotel_url,
