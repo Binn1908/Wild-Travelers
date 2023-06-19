@@ -252,7 +252,8 @@ with tab2:
 	#KPI 4
 	sl.markdown("<h3 style='text-align: center;'>Top 10 des villes avec le plus d'hébergements</h3>", unsafe_allow_html=True)
 
-	accommodation_counts = df[df['category'] == 'Hébergement']['ville'].value_counts()
+	accommodation_counts = df['ville'].value_counts()
+	#accommodation_counts = df[df['category'] == 'Hébergement']['ville'].value_counts()
 	top_10_accommodation_cities = accommodation_counts.nlargest(10)
 	colors = sns.color_palette('pastel', len(top_10_accommodation_cities))
 
@@ -261,7 +262,7 @@ with tab2:
 	ax1 = sns.barplot(x = top_10_accommodation_cities.values, y = top_10_accommodation_cities.index,
 		palette = colors)
 	#plt.title("Top 10 des villes avec le plus d'hébergements")
-	plt.xlabel("Nombre d'hébergements")
+	plt.xlabel("Nombre d'établissements")
 	plt.ylabel('Ville')
 	for i, v in enumerate(top_10_accommodation_cities.values):
 	    plt.text(v + 0.2, i, str(v), color = 'black', fontweight = 'bold')
