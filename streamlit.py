@@ -184,7 +184,7 @@ with tab1:
             		#pickable=True,
             		#tooltip=True
 	
-	sl.write(len(df)
+	sl.write(len(df))
 
 #tab Dataviz
 with tab2:
