@@ -147,8 +147,8 @@ with tab1:
 	#for i in df_coordinates.index:
 		#df_coordinates['icon_data'][i] = icon_data
 
-	icon_hotel_url = 'https://raw.githubusercontent.com/Binn1908/Wild-Travelers/01fd7d111e2f8cb2f0382cbab795174dcde4f467/icon_hotel.png'
-	icon_resto_url = 'https://github.com/Binn1908/Wild-Travelers/blob/01fd7d111e2f8cb2f0382cbab795174dcde4f467/icon_resto.png'
+	icon_hotel_url = 'https://raw.githubusercontent.com/Binn1908/Wild-Travelers/main/icon_hotel.png'
+	icon_resto_url = 'https://raw.githubusercontent.com/Binn1908/Wild-Travelers/main/icon_resto.png'
 
 	#icon_hotel_url = 'https://cdn-icons-png.flaticon.com/512/3082/3082383.png'
 	#icon_resto_url = 'https://cdn-icons-png.flaticon.com/512/3082/3082383.png'
