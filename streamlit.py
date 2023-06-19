@@ -176,24 +176,30 @@ with tab1:
 	))
 
         	#pdk.Layer(
-            	#	'ScatterplotLayer',
-            	#	data=df_coordinates,
-            	#	get_position='[longitude, latitude]',
-            	#	get_color="category == 'Hébergement' ? [200, 30, 0, 160] : [0, 100, 200, 160]",
-            	#	get_radius=40,
-            	#	pickable=True,
-            	#	tooltip=True
+            		#'ScatterplotLayer',
+            		#data=df_coordinates,
+            		#get_position='[longitude, latitude]',
+            		#get_color="category == 'Hébergement' ? [200, 30, 0, 160] : [0, 100, 200, 160]",
+            		#get_radius=40,
+            		#pickable=True,
+            		#tooltip=True
+	
+	sl.write(len(df)
 
 #tab Dataviz
 with tab2:
 
+	df_dataviz = df
+	
 	user_type2 = sl.multiselect("Filtrer par catégorie", type_options)
 	
+	if user_type2:
+		df_dataviz = df_dataviz.loc[df_dataviz['category'].isin(user_type2)]
+		
 	#KPI 1
 	sl.markdown("<h3 style='text-align: center;'>Nombre d'établissements par région et catégorie</h3>", unsafe_allow_html=True)
 
-	if user_type2
-	establishments_per_region_category = df.groupby(['region', 'category']).size().unstack(fill_value=0)
+	establishments_per_region_category = df_dataviz.groupby(['region', 'category']).size().unstack(fill_value=0)
 
 	fig, ax = plt.subplots(figsize = (8,4))
 	ax1 = plt.subplot()
@@ -209,7 +215,7 @@ with tab2:
 	#KPI 2
 	sl.markdown("<h3 style='text-align: center;'>Distribution des établissements par catégorie</h3>", unsafe_allow_html=True)
 
-	category_counts = df['category'].value_counts()
+	category_counts = df_dataviz['category'].value_counts()
 	colors = sns.color_palette('pastel')[0:len(category_counts)]
 
 	fig, ax = plt.subplots(figsize = (4,4))
@@ -225,7 +231,7 @@ with tab2:
 	#KPI 3
 	sl.markdown("<h3 style='text-align: center;'>Répartition des établissements avec accès réduit</h3>", unsafe_allow_html=True)
 
-	access_counts = df['reducedMobilityAccess'].value_counts()
+	access_counts = df_dataviz['reducedMobilityAccess'].value_counts()
 	labels = access_counts.index
 	sizes = access_counts.values
 	colors = ['#AAD7AA', '#EEB1B2']
@@ -279,6 +285,8 @@ with tab2:
 		plt.text(v + 0.2, i, str(v), color = 'black', fontweight = 'bold')
 	sl.pyplot(fig)
 
+	sl.write(len(df))
+	
 #tab Robot ML
 with tab3:
 
@@ -296,6 +304,8 @@ with tab3:
 	predicted_category = model.predict(new_text_vectorized)
 
 	sl.write(f"Prédiction du type d'établissement : {predicted_category[0]}")
+
+	sl.write(len(df)
 
 #footer
 sl.divider()
