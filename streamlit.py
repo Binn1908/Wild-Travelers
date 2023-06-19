@@ -66,7 +66,7 @@ with sl.sidebar:
 
 	#logo
 	logo = Image.open('logo.png')
-	sl.image(logo, width = 200)
+	sl.image(logo, width = 100)
 
 	#filtres
 
