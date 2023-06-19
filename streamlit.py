@@ -250,7 +250,7 @@ with tab2:
 	sl.pyplot(fig)
 
 	#KPI 4
-	sl.markdown("<h3 style='text-align: center;'>Top 10 des villes avec le plus d'hébergements</h3>", unsafe_allow_html=True)
+	sl.markdown("<h3 style='text-align: center;'>Top 10 des villes avec le plus d'établissements</h3>", unsafe_allow_html=True)
 
 	accommodation_counts = df_dataviz['ville'].value_counts()
 	#accommodation_counts = df[df['category'] == 'Hébergement']['ville'].value_counts()
@@ -269,22 +269,21 @@ with tab2:
 	sl.pyplot(fig)
 
 	#KPI 5
-	sl.markdown("<h3 style='text-align: center;'>Top 10 des villes avec le plus de restaurations</h3>", unsafe_allow_html=True)
+	#sl.markdown("<h3 style='text-align: center;'>Top 10 des villes avec le plus de restaurations</h3>", unsafe_allow_html=True)
 
-	accommodation_counts = df[df['category'] == 'Restauration']['ville'].value_counts()
-	top_10_accommodation_cities = accommodation_counts.nlargest(10)
-	colors = sns.color_palette('pastel', len(top_10_accommodation_cities))
+	#accommodation_counts = df[df['category'] == 'Restauration']['ville'].value_counts()
+	#top_10_accommodation_cities = accommodation_counts.nlargest(10)
+	#colors = sns.color_palette('pastel', len(top_10_accommodation_cities))
 
-	fig, ax = plt.subplots(figsize = (6,2))
-	ax1 = plt.subplot()
-	ax1 = sns.barplot(x = top_10_accommodation_cities.values, y = top_10_accommodation_cities.index,
-		palette = colors)
+	#fig, ax = plt.subplots(figsize = (6,2))
+	#ax1 = plt.subplot()
+	#ax1 = sns.barplot(x = top_10_accommodation_cities.values, y = top_10_accommodation_cities.index, palette = colors)
 	#plt.title("Top 10 des villes avec le plus de restaurations")
-	plt.xlabel('Nombre de restaurations')
-	plt.ylabel('Ville')
-	for i, v in enumerate(top_10_accommodation_cities.values):
-		plt.text(v + 0.2, i, str(v), color = 'black', fontweight = 'bold')
-	sl.pyplot(fig)
+	#plt.xlabel('Nombre de restaurations')
+	#plt.ylabel('Ville')
+	#for i, v in enumerate(top_10_accommodation_cities.values):
+		#plt.text(v + 0.2, i, str(v), color = 'black', fontweight = 'bold')
+	#sl.pyplot(fig)
 
 	sl.write(len(df))
 	
