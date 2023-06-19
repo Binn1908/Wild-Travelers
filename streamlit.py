@@ -105,18 +105,18 @@ tab1, tab2, tab3 = sl.tabs(['Home', 'Dataviz', 'Robot ML'])
 #tab Home
 with tab1:
 
-	df_filtered = df.loc[(df['region'] == user_region) & (df['departement'] == user_dep) & 
+	df_coordinates = df.loc[(df['region'] == user_region) & (df['departement'] == user_dep) & 
 		(df['ville'] == user_ville)]
 
 	#df_filtered = df.loc[df['ville'] == user_ville]
 
 	if bool(user_type) == True:
-		df_filtered = df_filtered.loc[df_filtered['category'].isin(user_type)]
+		df_coordinates = df_coordinates.loc[df_coordinates['category'].isin(user_type)]
 
 	if bool(mobility) == True:
-		df_filtered = df_filtered.loc[df_filtered['reducedMobilityAccess'] == True]
+		df_coordinates = df_coordinates.loc[df_coordinates['reducedMobilityAccess'] == True]
 
-	df_coordinates = df_filtered[['nom_etablissement', 'category', 'latitude', 'longitude', 'rue', 
+	df_coordinates = df_coordinates[['nom_etablissement', 'category', 'latitude', 'longitude', 'rue', 
 		'code_postal', 'ville', 'telephone', 'email', 'site_web']]
 
 	if len(df_coordinates) > 0:
@@ -176,20 +176,23 @@ with tab1:
 	))
 
         	#pdk.Layer(
-            #	'ScatterplotLayer',
-            #	data=df_coordinates,
-            #	get_position='[longitude, latitude]',
-            #	get_color="category == 'Hébergement' ? [200, 30, 0, 160] : [0, 100, 200, 160]",
-            #	get_radius=40,
-            #	pickable=True,
-            #	tooltip=True
+            	#	'ScatterplotLayer',
+            	#	data=df_coordinates,
+            	#	get_position='[longitude, latitude]',
+            	#	get_color="category == 'Hébergement' ? [200, 30, 0, 160] : [0, 100, 200, 160]",
+            	#	get_radius=40,
+            	#	pickable=True,
+            	#	tooltip=True
 
 #tab Dataviz
 with tab2:
 
+	user_type2 = sl.multiselect("Filtrer par catégorie", type_options)
+	
 	#KPI 1
 	sl.markdown("<h3 style='text-align: center;'>Nombre d'établissements par région et catégorie</h3>", unsafe_allow_html=True)
 
+	if user_type2
 	establishments_per_region_category = df.groupby(['region', 'category']).size().unstack(fill_value=0)
 
 	fig, ax = plt.subplots(figsize = (8,4))
