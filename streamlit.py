@@ -195,7 +195,7 @@ with tab1:
     			size_scale=15,
    				get_position=["longitude", "latitude"],
     			pickable=True,
-			onClick="setTooltip({nom_etablissement}, {site_web})"
+			#onClick="setTooltip({nom_etablissement}, {site_web})"
         	),
     	],
     	tooltip={
