@@ -199,7 +199,7 @@ with tab1:
         'style': {
             'color': 'white'
         }
-    }
+    }))
 
         	#pdk.Layer(
             		#'ScatterplotLayer',
