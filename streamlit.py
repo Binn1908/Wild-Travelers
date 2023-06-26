@@ -55,6 +55,19 @@ def load_ml():
 
 	return vectorizer, model
 
+def open_website(link):
+    webbrowser.open(link)
+
+def set_tooltip(nom_etablissement, site_web):
+    map_main.deck_widget.tooltip = {
+        'html': '<b>Nom : </b> {nom_etablissement} <br/> <b>Type d\'établissement : </b> {category} <br/> <b>Adresse : </b> {rue}, {code_postal} {ville} <br/> <b>Téléphone : </b> {telephone} <br/> <b>Email : </b> {email} <br/> <b>Site web : </b> <a href="{site_web}" target="_blank">{site_web}</a><br/>',
+        'style': {
+            'color': 'white'
+        }
+    }
+    if site_web:
+        open_website(site_web)
+
 df = load_df()
 
 #model = load_model()
@@ -177,14 +190,17 @@ with tab1:
     			get_size=1,
     			size_scale=15,
    				get_position=["longitude", "latitude"],
-    			pickable=True
+    			pickable=True,
+			onClick="setTooltip({nom_etablissement}, {site_web})"
         	),
     	],
     	tooltip={
-	        'html': '<b>Nom : </b> {nom_etablissement} <br/> <b>Type d\'établissement : </b> {category} <br/> <b>Adresse : </b> {rue}, {code_postal} {ville} <br/> <b>Téléphone : </b> {telephone} <br/> <b>Email : </b> {email} <br/> <b>Site web : </b> {site_web} <br/>',
-	        'style': {
-	        	'color': 'white'}}
-	))
+        'html': '<b>Nom : </b> {nom_etablissement} <br/> <b>Type d\'établissement : </b> {category} <br/> <b>Adresse : </b> {rue}, {code_postal} {ville} <br/> <b>Téléphone : </b> {telephone} <br/> <b>Email : </b> {email} <br/> <b>Site web : </b> <a href="{site_web}" target="_blank">{site_web}</a><br/>',  # Utilisation d'un lien HTML pour le site web
+        'style': {
+            'color': 'white'
+        }
+    }
+)
 
         	#pdk.Layer(
             		#'ScatterplotLayer',
