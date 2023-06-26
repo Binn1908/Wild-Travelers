@@ -9,6 +9,10 @@ import seaborn as sns
 import streamlit as sl
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
+import ipywidgets as widgets
+import geopandas as gpd
+import sidecar
+import webbrowser
 
 sl.set_page_config(layout = 'wide')
 
