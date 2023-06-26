@@ -195,7 +195,7 @@ with tab1:
     			size_scale=15,
    				get_position=["longitude", "latitude"],
     			pickable=True,
-			onClick="site_web"
+			onClick="IconLayer"
         	),
     	],
     	tooltip={
