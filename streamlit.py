@@ -200,7 +200,6 @@ with tab1:
             'color': 'white'
         }
     }
-)
 
         	#pdk.Layer(
             		#'ScatterplotLayer',
