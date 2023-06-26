@@ -182,9 +182,9 @@ with tab1:
         	),
     	],
     	tooltip={
-	        ‘html’: ‘<b>Nom : </b> {nom_etablissement} <br/> <b>Type d\‘établissement : </b> {category} <br/> <b>Adresse : </b> {rue}, {code_postal} {ville} <br/> <b>Téléphone : </b> {telephone} <br/> <b>Email : </b> {email} <br/> <b>Site web : </b> {site_web} <br/>’,
-	        ‘style’: {
-	        	‘color’: ‘white’}}
+	        'html': '<b>Nom : </b> {nom_etablissement} <br/> <b>Type d\'établissement : </b> {category} <br/> <b>Adresse : </b> {rue}, {code_postal} {ville} <br/> <b>Téléphone : </b> {telephone} <br/> <b>Email : </b> {email} <br/> <b>Site web : </b> {site_web} <br/>',
+	        'style': {
+	        	'color': 'white'}}
 	))
 
         	#pdk.Layer(
