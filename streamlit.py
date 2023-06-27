@@ -22,23 +22,9 @@ def load_df():
     df = pd.concat([df1, df2, df3, df4])
     return df
 
-#téléchargement du vectorizer
-#def load_vectorizer():
-#    with open('vectorizer.pkl', 'rb') as file:
-#        vectorizer = pickle.load(file)
-#    return vectorizer
-
-#téléchargement du modèle ML
-#def load_model():
-#    with open('mdl.pkl', 'rb') as file:
-#        model = pickle.load(file)
-#    return model
-
 #entraînement du modèle ML
 @sl.cache_data
 def load_ml():
-	#df = df.dropna(subset = ['description_pretraitee', 'category'])
-	#df.reset_index(drop=True, inplace=True)
 
 	X = df['description_pretraitee']
 	y = df['category']
@@ -56,10 +42,6 @@ def load_ml():
 	return vectorizer, model
 
 df = load_df()
-
-#model = load_model()
-
-#vectorizer = load_vectorizer()
 
 #contenu dans le sidebar
 with sl.sidebar:
@@ -135,8 +117,6 @@ with tab1:
 
 	#cartographie
 
-	#icon_url = 'https://cdn-icons-png.flaticon.com/512/3082/3082383.png'
-
 	icon_hotel_url = "https://raw.githubusercontent.com/Binn1908/Wild-Travelers/main/icon_hotel.png"
 	icon_resto_url = "https://raw.githubusercontent.com/Binn1908/Wild-Travelers/main/icon_resto.png"
 	
@@ -161,39 +141,32 @@ with tab1:
 		else:
 			df_coordinates['icon_data'][i] = icon_resto_data
 
-	map_main = sl.pydeck_chart(pdk.Deck(
-	    map_style='road',
-	    initial_view_state=pdk.ViewState(
-	        latitude=lat_default,
-	        longitude=lon_default,
-	        zoom=12,
-	        pitch=40,
-	    ),
-    	layers=[
-        	pdk.Layer(
-    			type="IconLayer",
-    			data=df_coordinates,
-    			get_icon="icon_data",
-    			get_size=1,
-    			size_scale=15,
-   				get_position=["longitude", "latitude"],
-    			pickable=True,
-        	),
-    	],
-    	tooltip={
-	        'html': '<b>Nom : </b> {nom_etablissement} <br/> <b>Type d\'établissement : </b> {category} <br/> <b>Adresse : </b> {rue}, {code_postal} {ville} <br/> <b>Téléphone : </b> {telephone} <br/> <b>Email : </b> {email} <br/> <b>Site web : </b> {site_web} <br/>',
-	        'style': {
-	        	'color': 'white'}}
-	))
-
-        	#pdk.Layer(
-            		#'ScatterplotLayer',
-            		#data=df_coordinates,
-            		#get_position='[longitude, latitude]',
-            		#get_color="category == 'Hébergement' ? [200, 30, 0, 160] : [0, 100, 200, 160]",
-            		#get_radius=40,
-            		#pickable=True,
-            		#tooltip=True
+	map_main = sl.pydeck_chart(
+		pdk.Deck(
+			map_style='road',
+			initial_view_state=pdk.ViewState(
+				latitude=lat_default,
+				longitude=lon_default,
+				zoom=12,
+				pitch=40,
+				),
+    			layers=[
+				pdk.Layer(
+					type="IconLayer",
+					data=df_coordinates,
+					get_icon="icon_data",
+					get_size=1,
+					size_scale=15,
+   					get_position=["longitude", "latitude"],
+					pickable=True,
+					),
+			       ],
+    			tooltip={
+				'html': '<b>Nom : </b> {nom_etablissement} <br/> <b>Type d\'établissement : </b> {category} <br/> <b>Adresse : </b> {rue}, {code_postal} {ville} <br/> <b>Téléphone : </b> {telephone} <br/> <b>Email : </b> {email} <br/> <b>Site web : </b> {site_web} <br/>',
+				'style': {'color': 'white'}
+				}
+			)
+		)
 
 #tab Dataviz
 with tab2:
