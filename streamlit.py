@@ -14,13 +14,13 @@ sl.set_page_config(layout = 'wide')
 
 #téléchargement du dataframe en cache
 @sl.cache_data
-def load_df():    
-    df1 = pd.read_pickle('df_final_pretraite_fr_1.pickle')
-    df2 = pd.read_pickle('df_final_pretraite_fr_2.pickle')
-    df3 = pd.read_pickle('df_final_pretraite_fr_3.pickle')
-    df4 = pd.read_pickle('df_final_pretraite_fr_4.pickle')
-    df = pd.concat([df1, df2, df3, df4])
-    return df
+def load_df():
+	df1 = pd.read_pickle('df_final_pretraite_fr_1.pickle')
+	df2 = pd.read_pickle('df_final_pretraite_fr_2.pickle')
+	df3 = pd.read_pickle('df_final_pretraite_fr_3.pickle')
+	df4 = pd.read_pickle('df_final_pretraite_fr_4.pickle')
+	df = pd.concat([df1, df2, df3, df4])
+	return df
 
 #entraînement du modèle ML
 @sl.cache_data
@@ -125,14 +125,14 @@ with tab1:
 		'width': 242,
 		'height': 242,
 		'anchorY': 242
-	}
+		}
 
 	icon_resto_data = {
 		'url': icon_resto_url,
 		'width': 242,
 		'height': 242,
 		'anchorY': 242
-	}
+		}
 
 	df_coordinates['icon_data'] = None
 	for i in df_coordinates.index:
@@ -188,7 +188,6 @@ with tab2:
 	ax1 = sns.heatmap(establishments_per_region_category, annot = True, fmt = 'd', cmap = 'YlGnBu')
 	plt.xlabel('Catégorie')
 	plt.ylabel('Région')
-	#plt.title("Nombre d'établissements par région et catégorie")
 	plt.xticks(rotation = 45)
 	plt.yticks(rotation = 0)
 	plt.tight_layout()
@@ -202,10 +201,8 @@ with tab2:
 
 	fig, ax = plt.subplots(figsize = (4,4))
 	ax1 = plt.subplot()
-	ax1 = plt.pie(category_counts, labels = category_counts.index, autopct = '%1.1f%%', startangle = 90,
-		colors = colors, wedgeprops = {'edgecolor': 'white'})
+	ax1 = plt.pie(category_counts, labels = category_counts.index, autopct = '%1.1f%%', startangle = 90, colors = colors, wedgeprops = {'edgecolor': 'white'})
 	plt.axis('equal')
-	#plt.title('Distribution des établissements par catégorie')
 	plt.legend(title = 'Catégories', loc = 'best', bbox_to_anchor = (1, 0.5))
 	plt.gca().add_artist(plt.Circle((0, 0), 0.7, color = 'white'))
 	sl.pyplot(fig)
@@ -222,11 +219,9 @@ with tab2:
 
 	fig, ax = plt.subplots(figsize = (4,2))
 	ax1 = plt.subplot()
-	ax1 = plt.pie(sizes, explode = explode, labels = labels, colors = colors, autopct = '%1.1f%%',
-		startangle = 90)
+	ax1 = plt.pie(sizes, explode = explode, labels = labels, colors = colors, autopct = '%1.1f%%', startangle = 90)
 	fig = plt.gcf()
 	fig.gca().add_artist(centre_circle)
-	#plt.title("Répartition des établissements avec accès réduit")
 	plt.axis('equal')
 	plt.tight_layout()
 	sl.pyplot(fig)
@@ -241,9 +236,7 @@ with tab2:
 
 	fig, ax = plt.subplots(figsize = (6,2))
 	ax1 = plt.subplot()
-	ax1 = sns.barplot(x = top_10_accommodation_cities.values, y = top_10_accommodation_cities.index,
-		palette = colors)
-	#plt.title("Top 10 des villes avec le plus d'hébergements")
+	ax1 = sns.barplot(x = top_10_accommodation_cities.values, y = top_10_accommodation_cities.index, palette = colors)
 	plt.xlabel("Nombre d'établissements")
 	plt.ylabel('Ville')
 	for i, v in enumerate(top_10_accommodation_cities.values):
