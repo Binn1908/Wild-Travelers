@@ -279,13 +279,21 @@ with tab3:
 
 	preprocessed_text = preprocess_text(new_text)
 
-	vectorizer2, model2 = load_ml2()
+	vectorizer1, model1 = load_ml1()
 
-	new_text_vectorized = vectorizer2.transform([preprocessed_text])
+	new_text_vectorized1 = vectorizer1.transform([preprocessed_text])
 
-	predicted_category = model2.predict(new_text_vectorized)
+	predicted_category1 = model1.predict(new_text_vectorized1)
 
-	sl.write(f"Prédiction du type d'établissement : {predicted_category[0]} (probabilité : {model2.predict_proba(new_text_vectorized)})")
+	sl.write(f"Prédiction du type d'établissement : {predicted_category1[0]} (probabilité : {model1.predict_proba(new_text_vectorized)})")
+	
+	#vectorizer2, model2 = load_ml2()
+
+	#new_text_vectorized = vectorizer2.transform([preprocessed_text])
+
+	#predicted_category = model2.predict(new_text_vectorized)
+
+	#sl.write(f"Prédiction du type d'établissement : {predicted_category[0]} (probabilité : {model2.predict_proba(new_text_vectorized)})")
 
 #footer
 sl.divider()
