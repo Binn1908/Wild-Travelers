@@ -22,9 +22,33 @@ def load_df():
 	df = pd.concat([df1, df2, df3, df4])
 	return df
 
-#entraînement du modèle ML
 @sl.cache_data
-def load_ml():
+def load_df2():
+	df2 = pd.read_csv('df2_final_pretraite_fr.csv')
+	return df2
+	
+#entraînement du modèle ML 1 sur df2
+@sl.cache_data
+def load_ml1():
+
+	X = df2['description_pretraitee']
+	y = df2['category']
+
+	X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+
+	vectorizer = TfidfVectorizer(max_features=5000, ngram_range=(1, 2), min_df=5)
+
+	X_train_vectorized = vectorizer.fit_transform(X_train)
+
+	model = LogisticRegression(class_weight='balanced', max_iter=1000)
+
+	model.fit(X_train_vectorized, y_train)
+
+	return vectorizer, model
+
+#entraînement du modèle ML 2 sur df
+@sl.cache_data
+def load_ml2():
 
 	X = df['description_pretraitee']
 	y = df['category']
@@ -42,6 +66,8 @@ def load_ml():
 	return vectorizer, model
 
 df = load_df()
+
+df2 = load_df2()
 
 #contenu dans le sidebar
 with sl.sidebar:
@@ -253,13 +279,13 @@ with tab3:
 
 	preprocessed_text = preprocess_text(new_text)
 
-	vectorizer, model = load_ml()
+	vectorizer2, model2 = load_ml2()
 
-	new_text_vectorized = vectorizer.transform([preprocessed_text])
+	new_text_vectorized = vectorizer2.transform([preprocessed_text])
 
-	predicted_category = model.predict(new_text_vectorized)
+	predicted_category = model2.predict(new_text_vectorized)
 
-	sl.write(f"Prédiction du type d'établissement : {predicted_category[0]} (probabilité : {model.predict_proba(new_text_vectorized)})")
+	sl.write(f"Prédiction du type d'établissement : {predicted_category[0]} (probabilité : {model2.predict_proba(new_text_vectorized)})")
 
 #footer
 sl.divider()
