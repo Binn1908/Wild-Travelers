@@ -31,7 +31,7 @@ def load_df2():
 @sl.cache_data
 def load_ml1():
 
-	df2.category = df2.category.astype(str)
+	df2.description_pretraitee = df2.description_pretraitee.astype(str)
 	
 	X = df2['description_pretraitee']
 	y = df2['category']
