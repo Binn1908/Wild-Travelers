@@ -295,7 +295,7 @@ with tab3:
 		new_text_vectorized2 = vectorizer2.transform([preprocessed_text])
 		predicted_category2 = model2.predict(new_text_vectorized2)
 
-		if 0.4 <= predicted_category2[0][0] <=0.6:
+		if 0.4 <= model2.predict_proba(new_text_vectorized2) <=0.6:
 			predicted_category2[0] = 'Hébergement/Restauration'
 		
 		sl.write(f"Prédiction du type d'établissement : {predicted_category2[0]} (probabilité : {model2.predict_proba(new_text_vectorized2)})")
