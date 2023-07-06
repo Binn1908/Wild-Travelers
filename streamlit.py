@@ -259,7 +259,7 @@ with tab3:
 
 	predicted_category = model.predict(new_text_vectorized)
 
-	sl.write(f"Prédiction du type d'établissement : {predicted_category[0]}")
+	sl.write(f"Prédiction du type d'établissement : {predicted_category[0]} (probabilité : {model.predict_proba(new_text_vectorized)})")
 
 #footer
 sl.divider()
