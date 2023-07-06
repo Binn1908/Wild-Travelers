@@ -281,7 +281,7 @@ with tab3:
 
 	vectorizer1, model1 = load_ml1()
 
-	new_text_vectorized1 = vectorizer1.transform([preprocessed_text])
+	#new_text_vectorized1 = vectorizer1.transform([preprocessed_text])
 
 	#predicted_category1 = model1.predict(new_text_vectorized1)
 
