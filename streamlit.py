@@ -283,7 +283,7 @@ with tab3:
 
 	new_text_vectorized1 = vectorizer1.transform([preprocessed_text])
 
-	predicted_category1 = model1.predict(new_text_vectorized1)
+	#predicted_category1 = model1.predict(new_text_vectorized1)
 
 	#sl.write(f"Prédiction du type d'établissement : {predicted_category1[0]} (probabilité : {model1.predict_proba(new_text_vectorized1)})")
 	
