@@ -36,11 +36,11 @@ def load_ml1():
 
 	X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
 
-	vectorizer = TfidfVectorizer(max_features=5000, ngram_range=(1, 2), min_df=5)
+	vectorizer = TfidfVectorizer(stop_words='english', max_features=5000, ngram_range=(1, 2), min_df=5)
 
 	X_train_vectorized = vectorizer.fit_transform(X_train)
 
-	model = LogisticRegression(class_weight='balanced', max_iter=1000)
+	model = LogisticRegression(class_weight='balanced')
 
 	model.fit(X_train_vectorized, y_train)
 
@@ -279,7 +279,7 @@ with tab3:
 
 	preprocessed_text = preprocess_text(new_text)
 
-	#vectorizer1, model1 = load_ml1()
+	vectorizer1, model1 = load_ml1()
 
 	#new_text_vectorized1 = vectorizer1.transform([preprocessed_text])
 
