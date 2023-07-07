@@ -110,7 +110,7 @@ with sl.sidebar:
 
 sl.header("Bienvenue chez Wild Travelers")
 
-tab1, tab2, tab3 = sl.tabs(['Home', 'Dataviz', 'Robot ML'])
+tab1, tab2, tab3 = sl.tabs(['Home', 'Dataviz', 'ML'])
 
 #tab Home
 with tab1:
