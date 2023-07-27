@@ -291,7 +291,7 @@ with tab3:
 
 	if predicted_category1 == 'Autres':
 		sl.write(f"Prédiction du type d'établissement : {predicted_category1[0]}")
-		#sl.write(model1.predict_proba(new_text_vectorized1))
+		sl.write(model1.predict_proba(new_text_vectorized1))
 	else:
 		new_text_vectorized2 = vectorizer2.transform([preprocessed_text])
 		predicted_category2 = model2.predict(new_text_vectorized2)
@@ -300,7 +300,7 @@ with tab3:
 			predicted_category2[0] = 'Hébergement/Restauration'
 		
 		sl.write(f"Prédiction du type d'établissement : {predicted_category2[0]}")
-		#sl.write(model2.predict_proba(new_text_vectorized2))
+		sl.write(model2.predict_proba(new_text_vectorized2))
 
 #footer
 sl.divider()
