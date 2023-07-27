@@ -300,7 +300,7 @@ with tab3:
 			predicted_category2[0] = 'Hébergement/Restauration'
 		
 		sl.write(f"Prédiction du type d'établissement : {predicted_category2[0]}")
-		sl.write(model2.predict_proba(new_text_vectorized2))
+		#sl.write(model2.predict_proba(new_text_vectorized2))
 
 #footer
 sl.divider()
